@@ -52,7 +52,7 @@ const Dashboard = () => {
                 variant="success"
                 size="lg"
                 className="mt-3"
-                onClick={() => navigate("/edit-portfolio/new")}
+                onClick={() => navigate("/create-portfolio/")}
               >
                 Create Your Portfolio 🚀
               </Button>
@@ -74,7 +74,7 @@ const Dashboard = () => {
                 {/* ✅ Navigate to edit page with correct portfolioId */}
                 <Button
                   variant="warning"
-                  onClick={() => navigate(`/edit-portfolio/${getPortfolioId()}`)}
+                  onClick={() => navigate(`/edit-portfolio/`)}
                 >
                   Edit
                 </Button>

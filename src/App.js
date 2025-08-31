@@ -38,6 +38,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/create-portfolio"
+          element={
+            <ProtectedRoute>
+              <EditPortfolio />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );
