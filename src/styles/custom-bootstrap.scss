@@ -1,0 +1,57 @@
+// Custom Bootstrap Variables
+$primary: #4f46e5;
+$secondary: #6b7280;
+$success: #10b981;
+$info: #06b6d4;
+$warning: #f59e0b;
+$danger: #ef4444;
+$light: #f8fafc;
+$dark: #1f2937;
+
+// Custom fonts
+$font-family-sans-serif: 'Inter', system-ui, -apple-system, sans-serif;
+$font-family-display: 'Poppins', system-ui, sans-serif;
+
+// Import Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Custom CSS classes
+.font-display {
+  font-family: $font-family-display !important;
+}
+
+.btn-gradient-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+  
+  &:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    color: white;
+  }
+}
+
+.btn-gradient-secondary {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border: none;
+  color: white;
+  
+  &:hover {
+    background: linear-gradient(135deg, #ec4899 0%, #ef4444 100%);
+    color: white;
+  }
+}
+
+.card-glass {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
