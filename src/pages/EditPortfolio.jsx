@@ -26,8 +26,10 @@ const EditPortfolio = () => {
     contact_message: "",
     layout: {
       theme: "light",
-      font: "Roboto",
-      color: "#333333",
+      headfont: "Roboto",
+      parafont:"poppins",
+      headcolor: "#333333",
+      paracolor:"#ffffff"
     },
   });
 
@@ -518,11 +520,11 @@ const EditPortfolio = () => {
 
     {/* Font */}
     <div className="col-md-4">
-      <label className="form-label">Font</label>
+      <label className="form-label">Heading Font</label>
       <select
         className="form-select"
-        value={portfolio.layout.font}
-        onChange={(e) => handleLayoutChange("font", e.target.value)}
+        value={portfolio.layout.headfont}
+        onChange={(e) => handleLayoutChange("headfont", e.target.value)}
       >
         <option value="Roboto" style={{ fontFamily: "Roboto" }}>Roboto</option>
         <option value="Poppins" style={{ fontFamily: "Poppins" }}>Poppins</option>
@@ -537,13 +539,42 @@ const EditPortfolio = () => {
       </select>
     </div>
 
+    <div className="col-md-4">
+      <label className="form-label">Paragraph Font</label>
+      <select
+        className="form-select"
+        value={portfolio.layout.parafont}
+        onChange={(e) => handleLayoutChange("parafont", e.target.value)}
+      >
+        <option value="Roboto" style={{ fontFamily: "Roboto" }}>Roboto</option>
+        <option value="Poppins" style={{ fontFamily: "Poppins" }}>Poppins</option>
+        <option value="Montserrat" style={{ fontFamily: "Montserrat" }}>Montserrat</option>
+        <option value="Lato" style={{ fontFamily: "Lato" }}>Lato</option>
+        <option value="Merriweather" style={{ fontFamily: "Merriweather" }}>Merriweather</option>
+        <option value="Playfair Display" style={{ fontFamily: "Playfair Display" }}>Playfair Display</option>
+        <option value="Oswald" style={{ fontFamily: "Oswald" }}>Oswald</option>
+        <option value="Raleway" style={{ fontFamily: "Raleway" }}>Raleway</option>
+        <option value="Nunito" style={{ fontFamily: "Nunito" }}>Nunito</option>
+        <option value="Work Sans" style={{ fontFamily: "Work Sans" }}>Work Sans</option>
+      </select>
+    </div>
     {/* Primary Color */}
     <div className="col-md-4">
       <label className="form-label">Primary Color</label>
       <input
         type="color"
-        value={portfolio.layout.color}
-        onChange={(e) => handleLayoutChange("color", e.target.value)}
+        value={portfolio.layout.headcolor}
+        onChange={(e) => handleLayoutChange("headcolor", e.target.value)}
+        className="form-control form-control-color"
+      />
+    </div>
+
+    <div className="col-md-4">
+      <label className="form-label">Secondary Color</label>
+      <input
+        type="color"
+        value={portfolio.layout.paracolor}
+        onChange={(e) => handleLayoutChange("paracolor", e.target.value)}
         className="form-control form-control-color"
       />
     </div>
