@@ -12,4 +12,4 @@ export const deletePortfolio = (userId) => API.delete(`portfolio/${userId}/delet
 
 // Public portfolio by username
 export const getPublicPortfolio = (username) =>
-  API.get(`/api/portfolio/public/${username}/`);
+  API.get(`portfolio/public/${username}/`);

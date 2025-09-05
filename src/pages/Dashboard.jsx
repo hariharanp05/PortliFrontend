@@ -65,7 +65,7 @@ const Dashboard = () => {
                 <Button
                   variant="primary"
                   onClick={() =>
-                    window.open(`/portfolio/${portfolio.username}`, "_blank")
+                    window.open(`/public/${portfolio.username}`, "_blank")
                   }
                 >
                   View

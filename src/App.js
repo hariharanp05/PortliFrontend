@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/protectedRoute";
 import AppNavbar from "./components/AppNavbar";
 import EditPortfolio from "./pages/EditPortfolio";  
+import PublicPortfolio from "./pages/PublicPortfolio";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+         {/* Public Portfolio - Dynamic username route */}
+        <Route path="/public/:username" element={<PublicPortfolioWrapper />} />
 
         {/* Protected Route for Dashboard */}
         <Route
@@ -50,5 +53,12 @@ function App() {
     </Router>
   );
 }
-
+//  * Wrapper component for PublicPortfolio
+//  * Extracts `username` param from URL and passes it as prop
+//  */
+import { useParams } from 'react-router-dom';
+function PublicPortfolioWrapper() {
+  const { username } = useParams();
+  return <PublicPortfolio username={username} />;
+}
 export default App;
