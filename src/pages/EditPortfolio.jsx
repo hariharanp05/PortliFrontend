@@ -134,7 +134,7 @@ const EditPortfolio = () => {
               className="form-control"
             />
           </div>
-          <div className="col-md-6">
+          {/* <div className="col-md-6">
             <label className="form-label">Profile Image URL</label>
             <input
               type="text"
@@ -143,7 +143,7 @@ const EditPortfolio = () => {
               onChange={handleChange}
               className="form-control"
             />
-          </div>
+          </div> */}
           <div className="col-md-6">
             <label className="form-label">Short Bio</label>
             <input
