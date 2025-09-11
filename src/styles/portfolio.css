@@ -1,111 +1,563 @@
-/* General Styles */
+/* =========================
+   portfolio.css - Full templates + animations
+   Drop this in src/styles/portfolio.css
+   ========================= */
+
+/* ---------- Base / Global ---------- */
+:root {
+  --footer-bg: #0d0d0d;
+  --transition: 0.28s ease;
+}
+
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333;
 }
 
+/* Loading */
 .loading {
   text-align: center;
   padding: 100px;
-  font-size: 1.5rem;
-  color: #555;
+  font-size: 1.4rem;
+  color: #666;
 }
 
 /* Wrapper */
 .portfolio-wrapper {
+  min-height: 100vh;
+  transition: background 0.4s var(--transition), color 0.3s var(--transition);
   background-size: cover;
   background-position: center;
-  min-height: 100vh;
-  color: #333;
 }
 
-/* Glass Navbar */
+/* ---------- Navbar ---------- */
 .glass-nav {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.25);
+  padding: 10px 0;
+  transition: background 0.3s var(--transition);
+  z-index: 1000;
+}
+
+.glass-nav .navbar-brand {
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 .nav-link {
-  color: #fff !important;
+  color: inherit !important;
   margin: 0 10px;
+  transition: color 0.24s ease;
 }
 
-.nav-link:hover {
-  color: #ffd700 !important;
-}
-
-/* Section Common */
+/* ---------- Sections ---------- */
 .section {
   padding: 80px 0;
+  transition: background-color 0.35s var(--transition), color 0.35s var(--transition);
 }
 
+/* .alt-bg will be used for alternate sections (About/Skills etc.) */
+.alt-bg {}
+
+/* Headings and text */
 .section-heading {
   font-size: 2.2rem;
   margin-bottom: 30px;
   text-align: center;
+  position: relative;
+  line-height: 1.12;
 }
 
-/* Home Section */
-.home-section {
-  padding-top: 120px;
-  text-align: center;
-}
-
-.profile-img {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  border: 4px solid #fff;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Cards */
+/* cards / interactive */
 .card {
   border: none;
-  transition: all 0.3s ease;
+  transition: transform 0.28s var(--transition), box-shadow 0.28s var(--transition);
+  background: rgba(255,255,255,0.02);
 }
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
 }
 
 /* Footer */
 .footer {
-  background: #000;
-  padding: 20px 0;
-  margin-top: 40px;
+  background: var(--footer-bg);
+  padding: 28px 0;
+  color: #fff;
 }
-
-.footer p {
-  margin: 0;
-}
-
+.footer p { margin: 0; }
 .footer .social-links a {
   margin: 0 10px;
   color: #fff;
-  transition: color 0.3s ease;
+  transition: color 0.24s ease;
 }
 
-.footer .social-links a:hover {
-  color: #ffd700;
-}
-
-/* Responsive */
+/* Responsive tweaks */
 @media (max-width: 768px) {
-  .profile-img {
-    width: 120px;
-    height: 120px;
-  }
+  .section { padding: 60px 16px; }
+  .section-heading { font-size: 1.9rem; }
+  .glass-nav { padding: 8px 0; }
+}
 
-  .section-heading {
-    font-size: 1.8rem;
-  }
+/* ---------- Animation utilities ---------- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fadeInUp 0.8s ease both; }
 
-  .nav-link {
-    margin: 5px 0;
-  }
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-down { animation: fadeInDown 0.8s ease both; }
+
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(-28px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-left { animation: slideLeft 0.9s cubic-bezier(.2,.9,.2,1) both; }
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(28px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-right { animation: slideRight 0.9s cubic-bezier(.2,.9,.2,1) both; }
+
+/* small subtle bounce used by Vibrant Gradient */
+@keyframes softBounce {
+  0% { transform: translateY(8px); opacity: 0; }
+  60% { transform: translateY(-6px); opacity: 1; }
+  100% { transform: translateY(0); }
+}
+.animate-bounce { animation: softBounce 0.9s cubic-bezier(.2,.8,.2,1) both; }
+
+/* ripple effect for buttons (Ocean Breeze) */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+.btn-ripple:after {
+  content: '';
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%) scale(0);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  opacity: 0;
+}
+.btn-ripple:active:after {
+  transform: translate(-50%,-50%) scale(1);
+  opacity: 1;
+  transition: 0s;
+}
+
+/* classic underline hover (Monochrome) */
+.underline-hover {
+  position: relative;
+  display: inline-block;
+}
+.underline-hover:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 0;
+  background: currentColor;
+  transition: width 0.28s ease;
+}
+.underline-hover:hover:after { width: 100%; }
+
+/* ---------- Template base variables (defaults) ---------- */
+.portfolio-wrapper {
+  --bg-1: #ffffff;
+  --bg-2: #f8f9fa;
+  --head-color: #111111;
+  --para-color: #444444;
+  --heading-font: 'Poppins', system-ui, sans-serif;
+  --para-font: 'Roboto', system-ui, sans-serif;
+}
+
+/* Apply colors generically (will be overridden by each template) */
+.portfolio-wrapper h1,
+.portfolio-wrapper h2,
+.portfolio-wrapper h3,
+.portfolio-wrapper .section-heading,
+.portfolio-wrapper .navbar-brand {
+  color: var(--head-color);
+  font-family: var(--heading-font);
+}
+
+.portfolio-wrapper p,
+.portfolio-wrapper .card p,
+.portfolio-wrapper .nav-link,
+.portfolio-wrapper li,
+.portfolio-wrapper .btn {
+  color: var(--para-color);
+  font-family: var(--para-font);
+}
+
+/* Generic section backgrounds: sections without .alt-bg use bg-1, .alt-bg use bg-2.
+   We still use the .alt-bg class the React markup already applies. */
+.portfolio-wrapper .section { background: var(--bg-1); }
+.portfolio-wrapper .section.alt-bg { background: var(--bg-2); }
+
+/* Ensure text contrast adjustments for dark templates (some overrides below will set colors) */
+.portfolio-wrapper .section, .portfolio-wrapper .section.alt-bg {
+  transition: background 0.35s var(--transition), color 0.3s var(--transition);
+}
+
+/* ---------- TEMPLATE 1 - Minimal White ---------- */
+.template-minimal-white {
+  --bg-1: #ffffff;
+  --bg-2: #f8f9fa;
+  --head-color: #111111;
+  --para-color: #444444;
+  --heading-font: 'Poppins', system-ui, sans-serif;
+  --para-font: 'Roboto', system-ui, sans-serif;
+}
+
+/* subtle card lift + soft shadows for minimal */
+.template-minimal-white .card {
+  background: rgba(255,255,255,0.9);
+  border-radius: 10px;
+  box-shadow: 0 6px 22px rgba(20,20,20,0.06);
+}
+.template-minimal-white .nav-link { color: var(--head-color) !important; }
+.template-minimal-white .section-heading { animation: fadeInUp 0.9s ease both; }
+.template-minimal-white .hover-lift:hover { transform: translateY(-6px); }
+
+/* ---------- TEMPLATE 2 - Premium Dark ---------- */
+.template-premium-dark {
+  --bg-1: #0f172a;
+  --bg-2: #1e293b;
+  --head-color: #ffffff;
+  --para-color: #cbd5e1;
+  --heading-font: 'Montserrat', system-ui, sans-serif;
+  --para-font: 'Open Sans', system-ui, sans-serif;
+  color-scheme: dark;
+  background-color: var(--bg-1);
+}
+.template-premium-dark .portfolio-wrapper { background-color: var(--bg-1); }
+
+/* navbar and links */
+.template-premium-dark .glass-nav { background: rgba(2,6,23,0.6); }
+.template-premium-dark .nav-link { color: var(--para-color) !important; }
+.template-premium-dark .nav-link:hover { color: #00e0ff !important; }
+
+/* panels, cards */
+.template-premium-dark .card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+}
+
+/* slide-in sections and glowing hover */
+.template-premium-dark .animate-slide-left { animation: slideLeft 0.9s ease both; }
+.template-premium-dark .animate-slide-right { animation: slideRight 0.9s ease both; }
+
+.template-premium-dark .hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 200, 255, 0.08), 0 2px 8px rgba(0,0,0,0.5);
+  border: 1px solid rgba(0,200,255,0.06);
+}
+
+/* small neon accent for headings */
+.template-premium-dark .section-heading::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 4px;
+  margin: 12px auto 0;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(0,238,255,0.9), rgba(0,145,255,0.6));
+  box-shadow: 0 6px 20px rgba(0,145,255,0.12);
+}
+
+/* ---------- TEMPLATE 3 - Vibrant Gradient ---------- */
+.template-vibrant-gradient {
+  --bg-1: linear-gradient(135deg, #fff7f9 0%, #fdfbfb 100%);
+  --bg-2: #ebedee;
+  --head-color: #ff0054;
+  --para-color: #333333;
+  --heading-font: 'Quicksand', system-ui, sans-serif;
+  --para-font: 'Lato', system-ui, sans-serif;
+}
+
+/* gradient movement background for wrapper */
+.template-vibrant-gradient.portfolio-wrapper {
+  background: linear-gradient(120deg, #ffdde1 0%, #ee9ca7 50%, #ffd1e8 100%);
+  background-size: 300% 300%;
+  animation: gradientMove 12s ease infinite;
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* bounce effects on headings/cards */
+.template-vibrant-gradient .section-heading { color: var(--head-color); animation: softBounce 0.9s both; }
+.template-vibrant-gradient .hover-lift:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 18px 36px rgba(255,0,84,0.06);
+}
+
+/* ---------- TEMPLATE 4 - Sleek Black & Gold ---------- */
+.template-sleek-black-gold {
+  --bg-1: #121212;
+  --bg-2: #1c1c1c;
+  --head-color: #f4c430;
+  --para-color: #bbbbbb;
+  --heading-font: 'Playfair Display', serif;
+  --para-font: 'Nunito Sans', system-ui, sans-serif;
+  color-scheme: dark;
+}
+.template-sleek-black-gold .portfolio-wrapper { background: var(--bg-1); }
+
+/* gold shimmer on headings */
+.template-sleek-black-gold .section-heading {
+  color: var(--head-color);
+  position: relative;
+}
+.template-sleek-black-gold .section-heading::before {
+  content: '';
+  position: absolute;
+  left: -10%;
+  top: -40%;
+  width: 120%;
+  height: 200%;
+  background: linear-gradient(125deg, rgba(255,255,255,0.03), rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  transform: rotate(10deg);
+  animation: goldShimmer 2.8s linear infinite;
+  mix-blend-mode: overlay;
+  opacity: 0.08;
+}
+@keyframes goldShimmer {
+  0% { transform: translateX(-100%) skewX(-10deg); }
+  100% { transform: translateX(100%) skewX(-10deg); }
+}
+
+/* smooth scroll feeling: cards slightly transparent */
+.template-sleek-black-gold .card {
+  background: rgba(255,255,255,0.02);
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+
+/* ---------- TEMPLATE 5 - Ocean Breeze ---------- */
+.template-ocean-breeze {
+  --bg-1: #e0f7fa;
+  --bg-2: #b2ebf2;
+  --head-color: #01579b;
+  --para-color: #004d40;
+  --heading-font: 'Raleway', system-ui, sans-serif;
+  --para-font: 'Inter', system-ui, sans-serif;
+}
+
+.template-ocean-breeze .section { background: var(--bg-1); }
+.template-ocean-breeze .section.alt-bg { background: var(--bg-2); }
+
+/* slide-up on scroll */
+.template-ocean-breeze .animate-fade-up { animation: fadeInUp 0.8s cubic-bezier(.2,.8,.2,1) both; }
+
+/* ripple on buttons - use btn-ripple class */
+.template-ocean-breeze .btn.btn-primary, .template-ocean-breeze .btn.btn-outline-primary {
+  overflow: hidden;
+}
+.template-ocean-breeze .btn.btn-primary.btn-ripple:after {
+  background: rgba(255,255,255,0.14);
+}
+
+/* subtle card style */
+.template-ocean-breeze .card {
+  border-radius: 10px;
+  background: rgba(255,255,255,0.78);
+  box-shadow: 0 12px 30px rgba(1,87,155,0.06);
+}
+
+/* ---------- TEMPLATE 6 - Cyberpunk ---------- */
+.template-cyberpunk {
+  --bg-1: #0d0d0d;
+  --bg-2: #1a1a1a;
+  --head-color: #ff00ff;
+  --para-color: #cccccc;
+  --heading-font: 'Orbitron', system-ui, sans-serif;
+  --para-font: 'Roboto Mono', monospace;
+  color-scheme: dark;
+}
+
+/* neon glow pulse */
+.template-cyberpunk .section-heading {
+  color: var(--head-color);
+  text-shadow: 0 0 8px rgba(255,0,255,0.15), 0 0 20px rgba(255,0,255,0.06);
+  animation: neonPulse 2.4s ease-in-out infinite;
+}
+@keyframes neonPulse {
+  0% { text-shadow: 0 0 6px rgba(255,0,255,0.12); transform: translateY(0); }
+  50% { text-shadow: 0 0 18px rgba(255,0,255,0.22); transform: translateY(-3px); }
+  100% { text-shadow: 0 0 6px rgba(255,0,255,0.12); transform: translateY(0); }
+}
+
+/* glitch heading effect helper */
+.template-cyberpunk .glitch {
+  position: relative;
+  display: inline-block;
+  color: var(--head-color);
+}
+.template-cyberpunk .glitch::before,
+.template-cyberpunk .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  clip: rect(0,900px,0,0);
+}
+.template-cyberpunk .glitch::before { left: 2px; text-shadow: -2px 0 cyan; animation: glitchTop 2.5s infinite linear; opacity: 0.9; }
+.template-cyberpunk .glitch::after  { left: -2px; text-shadow: -2px 0 magenta; animation: glitchBottom 3s infinite linear; opacity: 0.9; }
+@keyframes glitchTop {
+  0% { clip: rect(0,900px,0,0); }
+  10% { clip: rect(0,900px,80px,0); transform: translate(-1px,-1px); }
+  20% { clip: rect(10px,900px,40px,0); transform: translate(1px,0); }
+  30% { clip: rect(0,900px,90px,0); transform: translate(-2px,1px); }
+  100% { clip: rect(0,900px,0,0); transform: none; }
+}
+@keyframes glitchBottom {
+  0% { clip: rect(0,900px,0,0); }
+  15% { clip: rect(30px,900px,120px,0); transform: translate(2px,1px); }
+  40% { clip: rect(0,900px,70px,0); transform: translate(-1px,-1px); }
+  100% { clip: rect(0,900px,0,0); transform: none; }
+}
+
+/* cards with neon accent border */
+.template-cyberpunk .card {
+  background: rgba(15,15,15,0.65);
+  border: 1px solid rgba(255,0,255,0.06);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+
+/* ---------- TEMPLATE 7 - Earthy Nature ---------- */
+.template-earthy-nature {
+  --bg-1: #faf3e0;
+  --bg-2: #e9e4d0;
+  --head-color: #5b4636;
+  --para-color: #7d6d61;
+  --heading-font: 'Merriweather', serif;
+  --para-font: 'Lora', serif;
+}
+
+.template-earthy-nature .card {
+  background: rgba(255,255,255,0.92);
+  border-radius: 8px;
+  box-shadow: 0 10px 26px rgba(23,18,15,0.06);
+}
+.template-earthy-nature .section-heading { animation: fadeInUp 0.9s ease both; }
+.template-earthy-nature .hover-lift:hover { transform: scale(1.01); }
+
+/* ---------- TEMPLATE 8 - Bold Red & Black ---------- */
+.template-bold-red-black {
+  --bg-1: #ff0000;
+  --bg-2: #0d0d0d;
+  --head-color: #ffffff;
+  --para-color: #dddddd;
+  --heading-font: 'Oswald', system-ui, sans-serif;
+  --para-font: 'PT Sans', system-ui, sans-serif;
+  color-scheme: dark;
+}
+.template-bold-red-black .section { background: var(--bg-1); color: var(--para-color); }
+.template-bold-red-black .section.alt-bg { background: var(--bg-2); color: var(--para-color); }
+
+.template-bold-red-black .section-heading {
+  animation: slideDown 0.8s cubic-bezier(.2,.9,.2,1) both;
+  color: var(--head-color);
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* button ripple */
+.template-bold-red-black .btn { color: var(--head-color); border-color: rgba(255,255,255,0.12); }
+.template-bold-red-black .hover-lift:hover { transform: translateY(-6px) scale(1.02); }
+
+/* ---------- TEMPLATE 9 - Pastel Soft ---------- */
+.template-pastel-soft {
+  --bg-1: #fef6fb;
+  --bg-2: #f7f4ff;
+  --head-color: #4a4a4a;
+  --para-color: #707070;
+  --heading-font: 'Nunito', system-ui, sans-serif;
+  --para-font: 'Karla', system-ui, sans-serif;
+}
+
+.template-pastel-soft .section-heading {
+  color: var(--head-color);
+  animation: fadeBlur 0.9s ease both;
+}
+@keyframes fadeBlur {
+  0% { opacity: 0; filter: blur(6px); transform: translateY(12px); }
+  100% { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+.template-pastel-soft .hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(76,76,76,0.06);
+}
+
+/* ---------- TEMPLATE 10 - Monochrome Classic ---------- */
+.template-monochrome-classic {
+  --bg-1: #ffffff;
+  --bg-2: #eeeeee;
+  --head-color: #000000;
+  --para-color: #555555;
+  --heading-font: Georgia, 'Times New Roman', serif;
+  --para-font: Arial, system-ui, sans-serif;
+}
+
+.template-monochrome-classic .section-heading { animation: fadeInUp 0.7s ease both; color: var(--head-color); }
+
+/* elegant underline on hover for links and buttons */
+.template-monochrome-classic a, .template-monochrome-classic .nav-link, .template-monochrome-classic .btn {
+  color: var(--head-color);
+}
+.template-monochrome-classic .underline-hover:after { background: var(--head-color); }
+
+/* ---------- Accessibility small fixes ---------- */
+/* Ensure footer readable */
+.portfolio-wrapper .footer { color: #fff; }
+
+/* Section text color fallbacks if template uses dark backgrounds */
+.template-premium-dark .section, .template-sleek-black-gold .section,
+.template-cyberpunk .section, .template-bold-red-black .section {
+  color: var(--para-color);
+}
+
+/* Links contrast */
+.portfolio-wrapper a { color: inherit; text-decoration: none; }
+
+/* ---------- Utilities ---------- */
+/* small helper to dim text on alt-bg for dark templates */
+.template-premium-dark .section.alt-bg p,
+.template-sleek-black-gold .section.alt-bg p,
+.template-cyberpunk .section.alt-bg p,
+.template-bold-red-black .section.alt-bg p {
+  color: var(--para-color);
+}
+
+/* ---------- Final responsive touches ---------- */
+@media (max-width: 576px) {
+  .portfolio-wrapper .section { padding: 48px 12px; }
+  .glass-nav .nav-link { display: block; padding: 8px 0; }
+  .section-heading { font-size: 1.6rem; }
 }

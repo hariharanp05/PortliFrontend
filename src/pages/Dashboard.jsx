@@ -5,6 +5,7 @@ import {
   getUserPortfolio,
   deletePortfolio,
 } from "../services/portfolioServices";
+import AppNavbar from "../components/AppNavbar"
 
 const Dashboard = () => {
   const [username, setUsername] = useState("User");
@@ -40,8 +41,9 @@ const Dashboard = () => {
   };
 
   return (
-    <>
+    <><AppNavbar/>
       <Container className="dashboard-page text-center">
+        
         <h2 className="welcome-text mt-4">Welcome, {username} 👋</h2>
 
         <Card className="portfolio-card shadow-lg p-4 mt-4 mx-auto">

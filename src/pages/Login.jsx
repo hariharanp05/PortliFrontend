@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../api/axios"; // 👈 import axios instance
+import AppNavbar from "../components/AppNavbar";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const Login = () => {
 
 
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false); // ✅ Added loading state
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -37,6 +39,7 @@ const Login = () => {
     // }
 
     try {
+      setLoading(true); // 🔹 Disable button when submitting
       // 👉 Call backend login API
       const response = await API.post("/login/", formData);
       console.log("Payload sending:", formData);
@@ -59,12 +62,15 @@ const Login = () => {
     } catch (err) {
       console.error(err);
       toast.error(
-        err.response?.data?.message || "Login failed. Check credentials."
+        err.response?.data?.message || err.response?.data?.error || "Login failed. Check credentials."
       );
+    }finally {
+      setLoading(false); // 🔹 Re-enable button after process
     }
   };
 
   return (
+    <><AppNavbar/>
     <div
       className="d-flex align-items-center justify-content-center min-vh-100"
       style={{
@@ -113,8 +119,9 @@ const Login = () => {
                 type="submit"
                 className="w-100 py-2 fw-bold"
                 variant="primary"
+                disabled={loading} // ✅ Simple one-line disable
               >
-                Login
+                {loading ? "Processing..." : "Login"}
               </Button>
             </Form>
 
@@ -136,6 +143,7 @@ const Login = () => {
         <ToastContainer position="top-center" autoClose={3000} />
       </Container>
     </div>
+    </>
   );
 };
 

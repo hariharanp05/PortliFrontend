@@ -1,8 +1,10 @@
-import React, { useEffect, useState,} from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { getUserPortfolio, savePortfolio } from "../services/portfolioServices";
+import AppNavbar from "../components/AppNavbar"
+
 
 const EditPortfolio = () => {
   const [portfolio, setPortfolio] = useState({
@@ -14,9 +16,9 @@ const EditPortfolio = () => {
     phone: "",
     about_me: "",
     social_links: {
-  linkedin: "",
-  github: "",
-},
+      linkedin: "",
+      github: "",
+    },
     education: [],
     skills: [],
     projects: [],
@@ -25,15 +27,11 @@ const EditPortfolio = () => {
     show_contact_form: true,
     contact_message: "",
     layout: {
-      theme: "light",
-      headfont: "Roboto",
-      parafont:"poppins",
-      headcolor: "#333333",
-      paracolor:"#ffffff"
+      theme: "Minimal White",
     },
   });
 
-  const [saving, setSaving] = useState(false);   // <-- new state
+  const [saving, setSaving] = useState(false); // <-- new state
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
@@ -64,7 +62,10 @@ const EditPortfolio = () => {
   };
 
   const handleAddItem = (section, emptyItem) => {
-    setPortfolio({ ...portfolio, [section]: [...portfolio[section], emptyItem] });
+    setPortfolio({
+      ...portfolio,
+      [section]: [...portfolio[section], emptyItem],
+    });
   };
 
   const handleRemoveItem = (section, index) => {
@@ -87,27 +88,28 @@ const EditPortfolio = () => {
       layout: { ...portfolio.layout, [field]: value },
     });
   };
-  
-  const handleSave = async () => {
-    setSaving(true);  // disable button
-    console.log(savePortfolio)
-    try {
 
+  const handleSave = async () => {
+    setSaving(true); // disable button
+    console.log(savePortfolio);
+    try {
       await savePortfolio(portfolio);
       toast.success("Portfolio saved successfully!");
-      navigate("/dashboard");   // redirect after success
+      navigate("/dashboard"); // redirect after success
     } catch (err) {
       console.error(err.response?.data || err.message);
       toast.error("Failed to save portfolio. Try again!");
     } finally {
-      setSaving(false);  // re-enable button
+      setSaving(false); // re-enable button
     }
   };
 
   if (loading) return <div className="text-center mt-5">Loading...</div>;
 
   return (
+  <><AppNavbar/>
     <div className="container my-4">
+      
       <h2 className="mb-4 text-center">Edit Portfolio</h2>
 
       {/* Personal Info */}
@@ -189,29 +191,28 @@ const EditPortfolio = () => {
 
       {/* Social Links */}
       <div className="card mb-3">
-  <div className="card-header">Social Links</div>
-  <div className="card-body">
-    <div className="mb-3">
-      <label className="form-label">LinkedIn</label>
-      <input
-        type="text"
-        className="form-control"
-        value={portfolio.social_links.linkedin || ""}
-        onChange={(e) => handleSocialChange("linkedin", e.target.value)}
-      />
-    </div>
-    <div className="mb-3">
-      <label className="form-label">GitHub</label>
-      <input
-        type="text"
-        className="form-control"
-        value={portfolio.social_links.github || ""}
-        onChange={(e) => handleSocialChange("github", e.target.value)}
-      />
-    </div>
-  </div>
-</div>
-
+        <div className="card-header">Social Links</div>
+        <div className="card-body">
+          <div className="mb-3">
+            <label className="form-label">LinkedIn</label>
+            <input
+              type="text"
+              className="form-control"
+              value={portfolio.social_links.linkedin || ""}
+              onChange={(e) => handleSocialChange("linkedin", e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">GitHub</label>
+            <input
+              type="text"
+              className="form-control"
+              value={portfolio.social_links.github || ""}
+              onChange={(e) => handleSocialChange("github", e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
 
       {/* Education */}
       <div className="card mb-4">
@@ -240,7 +241,14 @@ const EditPortfolio = () => {
                   <input
                     type="text"
                     value={edu.degree}
-                    onChange={(e) => handleNestedChange("education", idx, "degree", e.target.value)}
+                    onChange={(e) =>
+                      handleNestedChange(
+                        "education",
+                        idx,
+                        "degree",
+                        e.target.value
+                      )
+                    }
                     placeholder="Degree"
                     className="form-control"
                   />
@@ -250,7 +258,12 @@ const EditPortfolio = () => {
                     type="text"
                     value={edu.institution}
                     onChange={(e) =>
-                      handleNestedChange("education", idx, "institution", e.target.value)
+                      handleNestedChange(
+                        "education",
+                        idx,
+                        "institution",
+                        e.target.value
+                      )
                     }
                     placeholder="Institution"
                     className="form-control"
@@ -261,7 +274,12 @@ const EditPortfolio = () => {
                     type="text"
                     value={edu.start_year}
                     onChange={(e) =>
-                      handleNestedChange("education", idx, "start_year", e.target.value)
+                      handleNestedChange(
+                        "education",
+                        idx,
+                        "start_year",
+                        e.target.value
+                      )
                     }
                     placeholder="Start Year"
                     className="form-control"
@@ -272,7 +290,12 @@ const EditPortfolio = () => {
                     type="text"
                     value={edu.end_year}
                     onChange={(e) =>
-                      handleNestedChange("education", idx, "end_year", e.target.value)
+                      handleNestedChange(
+                        "education",
+                        idx,
+                        "end_year",
+                        e.target.value
+                      )
                     }
                     placeholder="End Year"
                     className="form-control"
@@ -282,7 +305,12 @@ const EditPortfolio = () => {
                   <textarea
                     value={edu.description}
                     onChange={(e) =>
-                      handleNestedChange("education", idx, "description", e.target.value)
+                      handleNestedChange(
+                        "education",
+                        idx,
+                        "description",
+                        e.target.value
+                      )
                     }
                     placeholder="Description"
                     className="form-control"
@@ -320,7 +348,9 @@ const EditPortfolio = () => {
                 <input
                   type="text"
                   value={s.skill}
-                  onChange={(e) => handleNestedChange("skills", idx, "skill", e.target.value)}
+                  onChange={(e) =>
+                    handleNestedChange("skills", idx, "skill", e.target.value)
+                  }
                   placeholder="Skill"
                   className="form-control"
                 />
@@ -329,7 +359,9 @@ const EditPortfolio = () => {
                 <input
                   type="text"
                   value={s.level}
-                  onChange={(e) => handleNestedChange("skills", idx, "level", e.target.value)}
+                  onChange={(e) =>
+                    handleNestedChange("skills", idx, "level", e.target.value)
+                  }
                   placeholder="Level (Beginner, Intermediate, Advanced)"
                   className="form-control"
                 />
@@ -372,14 +404,21 @@ const EditPortfolio = () => {
               <input
                 type="text"
                 value={p.title}
-                onChange={(e) => handleNestedChange("projects", idx, "title", e.target.value)}
+                onChange={(e) =>
+                  handleNestedChange("projects", idx, "title", e.target.value)
+                }
                 placeholder="Project Title"
                 className="form-control mb-2"
               />
               <textarea
                 value={p.description}
                 onChange={(e) =>
-                  handleNestedChange("projects", idx, "description", e.target.value)
+                  handleNestedChange(
+                    "projects",
+                    idx,
+                    "description",
+                    e.target.value
+                  )
                 }
                 placeholder="Project Description"
                 className="form-control mb-2"
@@ -388,7 +427,12 @@ const EditPortfolio = () => {
                 type="text"
                 value={p.tech_stack}
                 onChange={(e) =>
-                  handleNestedChange("projects", idx, "tech_stack", e.target.value)
+                  handleNestedChange(
+                    "projects",
+                    idx,
+                    "tech_stack",
+                    e.target.value
+                  )
                 }
                 placeholder="Tech Stack"
                 className="form-control mb-2"
@@ -397,7 +441,12 @@ const EditPortfolio = () => {
                 type="text"
                 value={p.live_link}
                 onChange={(e) =>
-                  handleNestedChange("projects", idx, "live_link", e.target.value)
+                  handleNestedChange(
+                    "projects",
+                    idx,
+                    "live_link",
+                    e.target.value
+                  )
                 }
                 placeholder="Live Link"
                 className="form-control mb-2"
@@ -406,7 +455,12 @@ const EditPortfolio = () => {
                 type="text"
                 value={p.repo_link}
                 onChange={(e) =>
-                  handleNestedChange("projects", idx, "repo_link", e.target.value)
+                  handleNestedChange(
+                    "projects",
+                    idx,
+                    "repo_link",
+                    e.target.value
+                  )
                 }
                 placeholder="Repo Link"
                 className="form-control mb-2"
@@ -449,7 +503,12 @@ const EditPortfolio = () => {
                 type="text"
                 value={c.title}
                 onChange={(e) =>
-                  handleNestedChange("certifications", idx, "title", e.target.value)
+                  handleNestedChange(
+                    "certifications",
+                    idx,
+                    "title",
+                    e.target.value
+                  )
                 }
                 placeholder="Title"
                 className="form-control mb-2"
@@ -458,7 +517,12 @@ const EditPortfolio = () => {
                 type="text"
                 value={c.issuer}
                 onChange={(e) =>
-                  handleNestedChange("certifications", idx, "issuer", e.target.value)
+                  handleNestedChange(
+                    "certifications",
+                    idx,
+                    "issuer",
+                    e.target.value
+                  )
                 }
                 placeholder="Issuer"
                 className="form-control mb-2"
@@ -467,14 +531,24 @@ const EditPortfolio = () => {
                 type="month"
                 value={c.date}
                 onChange={(e) =>
-                  handleNestedChange("certifications", idx, "date", e.target.value)
+                  handleNestedChange(
+                    "certifications",
+                    idx,
+                    "date",
+                    e.target.value
+                  )
                 }
                 className="form-control mb-2"
               />
               <textarea
                 value={c.description}
                 onChange={(e) =>
-                  handleNestedChange("certifications", idx, "description", e.target.value)
+                  handleNestedChange(
+                    "certifications",
+                    idx,
+                    "description",
+                    e.target.value
+                  )
                 }
                 placeholder="Description"
                 className="form-control mb-2"
@@ -505,78 +579,17 @@ const EditPortfolio = () => {
         value={portfolio.layout.theme}
         onChange={(e) => handleLayoutChange("theme", e.target.value)}
       >
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-        <option value="colorful">Colorful</option>
-        <option value="minimal">Minimal</option>
-        <option value="glass">Glass</option>
-        <option value="gradient">Gradient</option>
-        <option value="retro">Retro</option>
-        <option value="modern">Modern</option>
-        <option value="business">Business</option>
-        <option value="creative">Creative</option>
+        <option value="minimal-white">Minimal White</option>
+        <option value="premium-dark">Premium Dark</option>
+        <option value="vibrant-gradient">Vibrant Gradient</option>
+        <option value="sleek-black-gold">Sleek Black & Gold</option>
+        <option value="ocean-breeze">Ocean Breeze</option>
+        <option value="cyberpunk">Cyberpunk</option>
+        <option value="earthy-nature">Earthy Nature</option>
+        <option value="bold-red-black">Bold Red & Black</option>
+        <option value="pastel-soft">Pastel Soft</option>
+        <option value="monochrome-classic">Monochrome Classic</option>
       </select>
-    </div>
-
-    {/* Font */}
-    <div className="col-md-4">
-      <label className="form-label">Heading Font</label>
-      <select
-        className="form-select"
-        value={portfolio.layout.headfont}
-        onChange={(e) => handleLayoutChange("headfont", e.target.value)}
-      >
-        <option value="Roboto" style={{ fontFamily: "Roboto" }}>Roboto</option>
-        <option value="Poppins" style={{ fontFamily: "Poppins" }}>Poppins</option>
-        <option value="Montserrat" style={{ fontFamily: "Montserrat" }}>Montserrat</option>
-        <option value="Lato" style={{ fontFamily: "Lato" }}>Lato</option>
-        <option value="Merriweather" style={{ fontFamily: "Merriweather" }}>Merriweather</option>
-        <option value="Playfair Display" style={{ fontFamily: "Playfair Display" }}>Playfair Display</option>
-        <option value="Oswald" style={{ fontFamily: "Oswald" }}>Oswald</option>
-        <option value="Raleway" style={{ fontFamily: "Raleway" }}>Raleway</option>
-        <option value="Nunito" style={{ fontFamily: "Nunito" }}>Nunito</option>
-        <option value="Work Sans" style={{ fontFamily: "Work Sans" }}>Work Sans</option>
-      </select>
-    </div>
-
-    <div className="col-md-4">
-      <label className="form-label">Paragraph Font</label>
-      <select
-        className="form-select"
-        value={portfolio.layout.parafont}
-        onChange={(e) => handleLayoutChange("parafont", e.target.value)}
-      >
-        <option value="Roboto" style={{ fontFamily: "Roboto" }}>Roboto</option>
-        <option value="Poppins" style={{ fontFamily: "Poppins" }}>Poppins</option>
-        <option value="Montserrat" style={{ fontFamily: "Montserrat" }}>Montserrat</option>
-        <option value="Lato" style={{ fontFamily: "Lato" }}>Lato</option>
-        <option value="Merriweather" style={{ fontFamily: "Merriweather" }}>Merriweather</option>
-        <option value="Playfair Display" style={{ fontFamily: "Playfair Display" }}>Playfair Display</option>
-        <option value="Oswald" style={{ fontFamily: "Oswald" }}>Oswald</option>
-        <option value="Raleway" style={{ fontFamily: "Raleway" }}>Raleway</option>
-        <option value="Nunito" style={{ fontFamily: "Nunito" }}>Nunito</option>
-        <option value="Work Sans" style={{ fontFamily: "Work Sans" }}>Work Sans</option>
-      </select>
-    </div>
-    {/* Primary Color */}
-    <div className="col-md-4">
-      <label className="form-label">Primary Color</label>
-      <input
-        type="color"
-        value={portfolio.layout.headcolor}
-        onChange={(e) => handleLayoutChange("headcolor", e.target.value)}
-        className="form-control form-control-color"
-      />
-    </div>
-
-    <div className="col-md-4">
-      <label className="form-label">Secondary Color</label>
-      <input
-        type="color"
-        value={portfolio.layout.paracolor}
-        onChange={(e) => handleLayoutChange("paracolor", e.target.value)}
-        className="form-control form-control-color"
-      />
     </div>
 
   </div>
@@ -586,19 +599,17 @@ const EditPortfolio = () => {
       {/* Save Button */}
       <div className="text-center">
         <button
-  type="button"
-  onClick={handleSave}
-  disabled={saving}
-  className={`btn ${saving ? "btn-secondary" : "btn-primary"} px-4 py-2`}
->
-  {saving ? "Saving..." : "Save My Portfolio"}
-</button>
-
+          type="button"
+          onClick={handleSave}
+          disabled={saving}
+          className={`btn ${saving ? "btn-secondary" : "btn-primary"} px-4 py-2`}
+        >
+          {saving ? "Saving..." : "Save My Portfolio"}
+        </button>
       </div>
     </div>
+    </>
   );
 };
 
 export default EditPortfolio;
-
-

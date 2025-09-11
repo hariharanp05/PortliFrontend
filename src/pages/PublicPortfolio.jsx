@@ -17,23 +17,19 @@ export default function PublicPortfolio({ username }) {
   if (!portfolio) return <div className="loading">Loading...</div>;
 
   const { layout } = portfolio;
-  const bgImage = `/backgroundimg/${layout.theme}.png`;
 
-  // Helper to check if array section has data
+  // Helper: check if array has valid data
   const hasData = (data) => Array.isArray(data) && data.length > 0;
 
+  // Determine template class dynamically
+  const templateClass = `template-${layout.theme || 'minimal-white'}`;
+
   return (
-    <div
-      className="portfolio-wrapper"
-      style={{ backgroundImage: `url(${bgImage})` }}
-    >
+    <div className={`portfolio-wrapper ${templateClass}`}>
       {/* Navbar */}
-      <Navbar expand="lg" fixed="top" className="glass-nav">
+      <Navbar expand="lg" fixed="top" className="glass-nav animate-fade-down">
         <Container>
-          <Navbar.Brand
-            href="#home"
-            style={{ fontFamily: layout.headfont, color: layout.headcolor }}
-          >
+          <Navbar.Brand href="#home">
             {portfolio.full_name}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -54,46 +50,21 @@ export default function PublicPortfolio({ username }) {
       </Navbar>
 
       {/* Home Section */}
-      <section id="home" className="section home-section">
-        <Container>
-          <div className="text-center">
-            {/* Profile image commented out to prevent uploads */}
-            {/* <img
-              src={portfolio.profile_image}
-              alt="Profile"
-              className="profile-img"
-            /> */}
-            <h1 style={{ fontFamily: layout.headfont, color: layout.headcolor }}>
-              {portfolio.full_name}
-            </h1>
-            {portfolio.title && (
-              <h4 style={{ fontFamily: layout.parafont, color: layout.paracolor }}>
-                {portfolio.title}
-              </h4>
-            )}
-            {portfolio.short_bio && (
-              <p style={{ fontFamily: layout.parafont, color: layout.paracolor }}>
-                {portfolio.short_bio}
-              </p>
-            )}
-          </div>
+      <section id="home" className="section home-section animate-fade-up">
+        <Container className="text-center">
+          <h1>{portfolio.full_name}</h1>
+          {portfolio.title && <h4>{portfolio.title}</h4>}
+          {portfolio.short_bio && <p>{portfolio.short_bio}</p>}
         </Container>
       </section>
 
       {/* About Section */}
       {portfolio.about_me && (
-        <section id="about" className="section">
+        <section id="about" className="section alt-bg animate-slide-left">
           <Container>
             <Card className="shadow-sm p-4">
-              <h2
-                className="section-heading"
-                style={{ fontFamily: layout.headfont, color: layout.headcolor }}
-              >
-                About Me
-              </h2>
-              <p style={{ fontFamily: layout.parafont, color: layout.paracolor }}>
-                {portfolio.about_me}
-              </p>
+              <h2 className="section-heading">About Me</h2>
+              <p>{portfolio.about_me}</p>
             </Card>
           </Container>
         </section>
@@ -101,29 +72,16 @@ export default function PublicPortfolio({ username }) {
 
       {/* Education Section */}
       {hasData(portfolio.education) && (
-        <section id="education" className="section">
+        <section id="education" className="section animate-fade-up">
           <Container>
-            <h2
-              className="section-heading"
-              style={{ fontFamily: layout.headfont, color: layout.headcolor }}
-            >
-              Education
-            </h2>
+            <h2 className="section-heading">Education</h2>
             <Row>
               {portfolio.education.map((edu, index) => (
                 <Col md={6} xs={12} key={index} className="mb-3">
-                  <Card className="shadow-sm p-3">
-                    <h5 style={{ fontFamily: layout.headfont, color: layout.headcolor }}>
-                      {edu.degree}
-                    </h5>
-                    <p style={{ fontFamily: layout.parafont, color: layout.paracolor }}>
-                      {edu.institution} ({edu.start_year} - {edu.end_year})
-                    </p>
-                    {edu.description && (
-                      <p style={{ fontFamily: layout.parafont, color: layout.paracolor }}>
-                        {edu.description}
-                      </p>
-                    )}
+                  <Card className="shadow-sm p-3 hover-lift">
+                    <h5>{edu.degree}</h5>
+                    <p>{edu.institution} ({edu.start_year} - {edu.end_year})</p>
+                    {edu.description && <p>{edu.description}</p>}
                   </Card>
                 </Col>
               ))}
@@ -134,26 +92,15 @@ export default function PublicPortfolio({ username }) {
 
       {/* Skills Section */}
       {hasData(portfolio.skills) && (
-        <section id="skills" className="section">
+        <section id="skills" className="section alt-bg animate-slide-right">
           <Container>
-            <h2
-              className="section-heading"
-              style={{ fontFamily: layout.headfont, color: layout.headcolor }}
-            >
-              Skills
-            </h2>
+            <h2 className="section-heading">Skills</h2>
             <Row>
               {portfolio.skills.map((skill, index) => (
                 <Col md={6} xs={12} key={index} className="mb-3">
-                  <Card className="shadow-sm p-3">
-                    <h6 style={{ fontFamily: layout.headfont, color: layout.headcolor }}>
-                      {skill.skill}
-                    </h6>
-                    {skill.level && (
-                      <p style={{ fontFamily: layout.parafont, color: layout.paracolor }}>
-                        {skill.level}
-                      </p>
-                    )}
+                  <Card className="shadow-sm p-3 hover-lift">
+                    <h6>{skill.skill}</h6>
+                    {skill.level && <p>{skill.level}</p>}
                   </Card>
                 </Col>
               ))}
@@ -164,47 +111,24 @@ export default function PublicPortfolio({ username }) {
 
       {/* Projects Section */}
       {hasData(portfolio.projects) && (
-        <section id="projects" className="section">
+        <section id="projects" className="section animate-fade-up">
           <Container>
-            <h2
-              className="section-heading"
-              style={{ fontFamily: layout.headfont, color: layout.headcolor }}
-            >
-              Projects
-            </h2>
+            <h2 className="section-heading">Projects</h2>
             <Row>
               {portfolio.projects.map((project, index) => (
                 <Col md={6} xs={12} key={index} className="mb-3">
-                  <Card className="shadow-sm p-3">
-                    <h5 style={{ fontFamily: layout.headfont, color: layout.headcolor }}>
-                      {project.title}
-                    </h5>
-                    {project.description && (
-                      <p style={{ fontFamily: layout.parafont, color: layout.paracolor }}>
-                        {project.description}
-                      </p>
-                    )}
-                    {project.tech_stack && (
-                      <p>
-                        <strong>Tech Stack:</strong> {project.tech_stack}
-                      </p>
-                    )}
+                  <Card className="shadow-sm p-3 hover-lift">
+                    <h5>{project.title}</h5>
+                    {project.description && <p>{project.description}</p>}
+                    {project.tech_stack && <p><strong>Tech Stack:</strong> {project.tech_stack}</p>}
                     <div className="d-flex gap-2">
                       {project.live_link && (
-                        <Button
-                          variant="outline-primary"
-                          href={project.live_link}
-                          target="_blank"
-                        >
+                        <Button variant="outline-primary" href={project.live_link} target="_blank">
                           Live
                         </Button>
                       )}
                       {project.repo_link && (
-                        <Button
-                          variant="outline-secondary"
-                          href={project.repo_link}
-                          target="_blank"
-                        >
+                        <Button variant="outline-secondary" href={project.repo_link} target="_blank">
                           Code
                         </Button>
                       )}
@@ -219,29 +143,16 @@ export default function PublicPortfolio({ username }) {
 
       {/* Certifications Section */}
       {hasData(portfolio.certifications) && (
-        <section id="certifications" className="section">
+        <section id="certifications" className="section alt-bg animate-slide-left">
           <Container>
-            <h2
-              className="section-heading"
-              style={{ fontFamily: layout.headfont, color: layout.headcolor }}
-            >
-              Certifications
-            </h2>
+            <h2 className="section-heading">Certifications</h2>
             <Row>
               {portfolio.certifications.map((cert, index) => (
                 <Col md={6} xs={12} key={index} className="mb-3">
-                  <Card className="shadow-sm p-3">
-                    <h5 style={{ fontFamily: layout.headfont, color: layout.headcolor }}>
-                      {cert.title}
-                    </h5>
-                    <p style={{ fontFamily: layout.parafont, color: layout.paracolor }}>
-                      {cert.issuer} - {cert.date}
-                    </p>
-                    {cert.description && (
-                      <p style={{ fontFamily: layout.parafont, color: layout.paracolor }}>
-                        {cert.description}
-                      </p>
-                    )}
+                  <Card className="shadow-sm p-3 hover-lift">
+                    <h5>{cert.title}</h5>
+                    <p>{cert.issuer} - {cert.date}</p>
+                    {cert.description && <p>{cert.description}</p>}
                   </Card>
                 </Col>
               ))}
@@ -252,29 +163,14 @@ export default function PublicPortfolio({ username }) {
 
       {/* Contact Section */}
       {(portfolio.show_email || portfolio.phone || portfolio.show_contact_form) && (
-        <section id="contact" className="section">
+        <section id="contact" className="section animate-fade-up">
           <Container>
             <Card className="shadow-sm p-4">
-              <h2
-                className="section-heading"
-                style={{ fontFamily: layout.headfont, color: layout.headcolor }}
-              >
-                Contact
-              </h2>
-              {portfolio.show_email && (
-                <p style={{ fontFamily: layout.parafont, color: layout.paracolor }}>
-                  Email: {portfolio.email}
-                </p>
-              )}
-              {portfolio.phone && (
-                <p style={{ fontFamily: layout.parafont, color: layout.paracolor }}>
-                  Phone: {portfolio.phone}
-                </p>
-              )}
+              <h2 className="section-heading">Contact</h2>
+              {portfolio.show_email && <p>Email: {portfolio.email}</p>}
+              {portfolio.phone && <p>Phone: {portfolio.phone}</p>}
               {portfolio.show_contact_form && portfolio.contact_message && (
-                <p style={{ fontFamily: layout.parafont, color: layout.paracolor }}>
-                  {portfolio.contact_message}
-                </p>
+                <p>{portfolio.contact_message}</p>
               )}
             </Card>
           </Container>
@@ -284,7 +180,7 @@ export default function PublicPortfolio({ username }) {
       {/* Footer */}
       <footer className="footer">
         <Container className="text-center">
-          <p style={{ color: '#fff' }}>
+          <p>
             &copy; {new Date().getFullYear()} {portfolio.full_name} | Built with Portli
           </p>
           <div className="social-links">

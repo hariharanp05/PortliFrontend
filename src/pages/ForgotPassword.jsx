@@ -4,10 +4,12 @@ import { Form, Button, Card, Container } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios"; // 👈 import axios instance
+import AppNavbar from "../components/AppNavbar";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // ✅ Added loading state
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +24,7 @@ const ForgotPassword = () => {
     }
 
     try {
+      setLoading(true); // 🔹 Disable button when submitting
       // ✅ Call backend forgot password API
       const response = await API.post("/forgot-password/", { email });
 
@@ -37,13 +40,16 @@ const ForgotPassword = () => {
     } catch (err) {
       console.error(err);
       toast.error(
-        err.response?.data?.error || "Email not registered. Try again."
+       err.response?.data?.error || err.response?.data?.message || "Email not registered. Try again."
       );
       setTimeout(() => navigate("/login"), 1500); // navigate back to login if error
+    }finally {
+      setLoading(false); // 🔹 Re-enable button after process
     }
   };
 
   return (
+    <><AppNavbar/>
     <div
       className="d-flex align-items-center justify-content-center min-vh-100"
       style={{
@@ -73,8 +79,9 @@ const ForgotPassword = () => {
                 type="submit"
                 className="w-100 py-2 fw-bold"
                 variant="warning"
+                disabled={loading} // ✅ Simple one-line disable
               >
-                Send Reset OTP
+                {loading ? "Processing..." : "Sent Reset OTP"}
               </Button>
             </Form>
 
@@ -88,6 +95,7 @@ const ForgotPassword = () => {
         <ToastContainer position="top-center" autoClose={3000} />
       </Container>
     </div>
+    </>
   );
 };
 

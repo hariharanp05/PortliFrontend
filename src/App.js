@@ -6,14 +6,14 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/protectedRoute";
-import AppNavbar from "./components/AppNavbar";
+
 import EditPortfolio from "./pages/EditPortfolio";  
 import PublicPortfolio from "./pages/PublicPortfolio";
 
 function App() {
   return (
     <Router>
-      <AppNavbar/>
+      
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />

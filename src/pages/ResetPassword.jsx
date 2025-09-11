@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { EyeFill, EyeSlashFill } from "react-bootstrap-icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import API from "../api/axios"; // 👈 import axios instance
+import AppNavbar from "../components/AppNavbar";
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ const ResetPassword = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const [loading, setLoading] = useState(false); // ✅ Added loading state
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -51,6 +52,7 @@ const ResetPassword = () => {
     }
 
     try {
+      setLoading(true); // 🔹 Disable button when submitting
       // ✅ Call backend reset password API
       const response = await API.post("/reset-password/", {
         email,
@@ -69,18 +71,22 @@ const ResetPassword = () => {
     } catch (err) {
       console.error(err);
       toast.error(
-        err.response?.data?.error || "Failed to reset password. Try again."
+        err.response?.data?.error || err.response?.data?.message || "Failed to reset password. Try again."
       );
+    }finally {
+      setLoading(false); // 🔹 Re-enable button after process
     }
   };
 
   return (
+    <><AppNavbar/>
     <div
       className="d-flex align-items-center justify-content-center min-vh-100"
       style={{
         background: "linear-gradient(135deg, #ff6a00 0%, #ee0979 100%)",
       }}
     >
+      
       <Container style={{ maxWidth: "500px" }}>
         <Card className="shadow-lg border-0 rounded-4">
           <Card.Body className="p-5">
@@ -155,8 +161,10 @@ const ResetPassword = () => {
                 type="submit"
                 className="w-100 py-2 fw-bold"
                 variant="danger"
+                disabled={loading} // ✅ Simple one-line disable
+
               >
-                Reset Password
+                {loading ? "Processing..." : "Reset Password"}
               </Button>
             </Form>
           </Card.Body>
@@ -164,6 +172,7 @@ const ResetPassword = () => {
         <ToastContainer position="top-center" autoClose={3000} />
       </Container>
     </div>
+    </>
   );
 };
 

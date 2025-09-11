@@ -3,6 +3,7 @@ import { Form, Button, Card, Container } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../api/axios";
+import AppNavbar from "../components/AppNavbar";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const Register = () => {
   });
 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false); // ✅ Added loading state
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,7 +39,9 @@ const Register = () => {
     toast.error(errorMsg);
   } else {
     try {
+      setLoading(true); // 🔹 Disable button when submitting
       // 👉 Send data to backend
+      console.log("Sending Data to Backend:", formData);
       const response = await API.post("register/", formData);
 
       if (response.status === 201 || response.status === 200) {
@@ -50,13 +54,21 @@ const Register = () => {
       }
     } catch (err) {
       console.error(err);
-      toast.error(err.response?.data?.message || "Registration failed");
+      toast.error(
+  err.response?.data?.error ||
+  err.response?.data?.message ||
+  "Registration failed"
+);
+
+    }finally {
+      setLoading(false); // 🔹 Re-enable button after process
     }
   }
 };
 
 
   return (
+    <><AppNavbar/>
     <div
       className="d-flex align-items-center justify-content-center min-vh-100"
       style={{
@@ -120,8 +132,9 @@ const Register = () => {
                 type="submit"
                 className="w-100 py-2 fw-bold"
                 variant="primary"
+                disabled={loading} // ✅ Simple one-line disable
               >
-                Register
+                {loading ? "Processing..." : "Register"}
               </Button>
             </Form>
 
@@ -137,6 +150,7 @@ const Register = () => {
         <ToastContainer position="top-center" autoClose={3000} />
       </Container>
     </div>
+    </>
   );
 };
 
