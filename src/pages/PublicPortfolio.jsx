@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Navbar, Nav, Card, Button } from 'react-bootstrap';
 import { getPublicPortfolio } from '../services/portfolioServices';
-import '../styles/portfolio.css';
+// import '../styles/portfolio.css';
 
 export default function PublicPortfolio({ username }) {
   const [portfolio, setPortfolio] = useState(null);
+  const [selectedTheme, setSelectedTheme] = useState('minimal-white'); // default theme
 
   useEffect(() => {
     if (username) {
       getPublicPortfolio(username)
-        .then((res) => setPortfolio(res.data))
+        .then((res) => {
+          setPortfolio(res.data);
+          if (res.data?.layout?.theme) {
+            setSelectedTheme(res.data.layout.theme); // set theme from API
+          }
+        })
         .catch((err) => console.error(err));
     }
   }, [username]);
+
+  // Dynamically import the theme CSS
+  useEffect(() => {
+    if (selectedTheme) {
+      import(`../styles/themes/${selectedTheme}.css`)
+        .then(() => {
+          // Theme loaded successfully
+        })
+        .catch((err) => {
+          console.error(`Error loading theme: ${selectedTheme}`, err);
+        });
+    }
+  }, [selectedTheme]);
 
   if (!portfolio) return <div className="loading">Loading...</div>;
 
@@ -21,11 +40,8 @@ export default function PublicPortfolio({ username }) {
   // Helper: check if array has valid data
   const hasData = (data) => Array.isArray(data) && data.length > 0;
 
-  // Determine template class dynamically
-  const templateClass = `template-${layout.theme || 'minimal-white'}`;
-
   return (
-    <div className={`portfolio-wrapper ${templateClass}`}>
+    <div className={`portfolio-wrapper template-${selectedTheme}`}>
       {/* Navbar */}
       <Navbar expand="lg" fixed="top" className="glass-nav animate-fade-down">
         <Container>

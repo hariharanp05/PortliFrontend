@@ -1,0 +1,78 @@
+/* =========================
+   Minimal White Theme
+   Font: 'Poppins', sans-serif
+   ========================= */
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #ffffff;
+  color: #222;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 600;
+  color: #000;
+}
+
+/* Navbar */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #ddd;
+}
+
+.glass-nav a {
+  color: #222 !important;
+  font-weight: 500;
+}
+
+/* Sections */
+.section {
+  padding: 80px 20px;
+}
+
+.alt-bg {
+  background: #f8f8f8;
+}
+
+/* Cards */
+.card, .shadow-sm {
+  background: #fff;
+  border: 1px solid #eaeaea;
+  transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+}
+
+/* Footer */
+.footer {
+  background: #f5f5f5;
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+.footer a {
+  color: #000;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+/* Animations */
+.animate-fade-up {
+  animation: fadeUp 0.6s ease forwards;
+}
+@keyframes fadeUp {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}

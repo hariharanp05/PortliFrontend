@@ -1,0 +1,79 @@
+/* =========================
+   Earthy Nature Theme
+   Font: 'Lora', serif
+   ========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f1f8e9;
+  color: #3e2723;
+  font-family: 'Lora', serif;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4 {
+  color: #2e7d32;
+}
+
+/* Navbar */
+.glass-nav {
+  background: rgba(200, 230, 201, 0.9);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #66bb6a;
+}
+
+.glass-nav a {
+  color: #1b5e20 !important;
+  transition: color 0.3s ease;
+}
+
+.glass-nav a:hover {
+  color: #388e3c !important;
+}
+
+/* Sections */
+.section {
+  padding: 80px 20px;
+}
+
+.alt-bg {
+  background: #e8f5e9;
+}
+
+/* Cards */
+.card, .shadow-sm {
+  background: #ffffff;
+  border: 1px solid #c8e6c9;
+  transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+}
+
+/* Footer */
+.footer {
+  background: #2e7d32;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer a {
+  color: #c8e6c9;
+  margin: 0 10px;
+}
+
+/* Animations */
+.animate-fade-up {
+  animation: fadeUp 0.7s ease forwards;
+}
+@keyframes fadeUp {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}

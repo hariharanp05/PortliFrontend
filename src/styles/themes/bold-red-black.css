@@ -1,0 +1,83 @@
+/* =========================
+   Bold Red & Black Theme
+   Font: 'Oswald', sans-serif
+   ========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  color: #ff0000;
+  text-transform: uppercase;
+}
+
+/* Navbar */
+.glass-nav {
+  background: rgba(0, 0, 0, 0.95);
+  border-bottom: 2px solid #ff0000;
+}
+
+.glass-nav a {
+  color: #fff !important;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.glass-nav a:hover {
+  color: #ff0000 !important;
+}
+
+/* Sections */
+.section {
+  padding: 100px 20px;
+}
+
+.alt-bg {
+  background: #111;
+}
+
+/* Cards */
+.card, .shadow-sm {
+  background: #111;
+  border: 1px solid #ff0000;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: scale(1.03);
+  background: #1a1a1a;
+}
+
+/* Footer */
+.footer {
+  background: #000;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  border-top: 2px solid #ff0000;
+}
+
+.footer a {
+  color: #ff0000;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+/* Animations */
+.animate-fade-up {
+  animation: fadeUp 0.8s ease forwards;
+}
+@keyframes fadeUp {
+  from {opacity: 0; transform: translateY(30px);}
+  to {opacity: 1; transform: translateY(0);}
+}

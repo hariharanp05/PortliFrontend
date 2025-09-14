@@ -1,0 +1,88 @@
+/* =========================
+   Cyberpunk Theme
+   Font: 'Orbitron', sans-serif
+   ========================= */
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0a0f1e;
+  color: #e5e5e5;
+  font-family: 'Orbitron', sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  color: #f72585;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(247, 37, 133, 0.7);
+}
+
+/* Navbar */
+.glass-nav {
+  background: rgba(10, 15, 30, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #7209b7;
+}
+
+.glass-nav a {
+  color: #4cc9f0 !important;
+  transition: color 0.3s ease;
+}
+
+.glass-nav a:hover {
+  color: #f72585 !important;
+}
+
+/* Sections */
+.section {
+  padding: 100px 20px;
+}
+
+.alt-bg {
+  background: rgba(50, 50, 80, 0.4);
+  backdrop-filter: blur(8px);
+}
+
+/* Cards */
+.card, .shadow-sm {
+  background: rgba(15, 20, 40, 0.9);
+  border: 1px solid #4cc9f0;
+  color: #e5e5e5;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 20px #f72585;
+}
+
+/* Footer */
+.footer {
+  background: #0a0f1e;
+  color: #4cc9f0;
+  padding: 25px;
+  text-align: center;
+  border-top: 1px solid #7209b7;
+}
+
+.footer a {
+  color: #f72585;
+  margin: 0 10px;
+  text-decoration: none;
+  text-shadow: 0 0 5px #f72585;
+}
+
+/* Animations */
+.animate-fade-up {
+  animation: fadeUp 0.8s ease forwards;
+}
+@keyframes fadeUp {
+  from {opacity: 0; transform: translateY(30px);}
+  to {opacity: 1; transform: translateY(0);}
+}

@@ -1,0 +1,82 @@
+/* =========================
+   Monochrome Classic Theme
+   Font: 'Open Sans', sans-serif
+   ========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #fff;
+  color: #333;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  color: #000;
+}
+
+/* Navbar */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #ccc;
+}
+
+.glass-nav a {
+  color: #000 !important;
+  font-weight: 500;
+}
+
+.glass-nav a:hover {
+  color: #555 !important;
+}
+
+/* Sections */
+.section {
+  padding: 80px 20px;
+}
+
+.alt-bg {
+  background: #f7f7f7;
+}
+
+/* Cards */
+.card, .shadow-sm {
+  background: #fff;
+  border: 1px solid #ddd;
+  transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+.footer {
+  background: #fff;
+  color: #333;
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #ccc;
+}
+
+.footer a {
+  color: #000;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+/* Animations */
+.animate-fade-up {
+  animation: fadeUp 0.6s ease forwards;
+}
+@keyframes fadeUp {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
