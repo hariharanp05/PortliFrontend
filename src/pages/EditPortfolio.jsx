@@ -22,6 +22,7 @@ const EditPortfolio = () => {
     education: [],
     skills: [],
     projects: [],
+    experience:[],
     certifications: [],
     show_email: true,
     show_contact_form: true,
@@ -469,6 +470,105 @@ const EditPortfolio = () => {
                 <button
                   className="btn btn-danger btn-sm"
                   onClick={() => handleRemoveItem("projects", idx)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* experiences */}
+      <div className="card mb-4">
+        <div className="card-header d-flex justify-content-between">
+          <span>Experience</span>
+          <button
+            className="btn btn-sm btn-success"
+            onClick={() =>
+              handleAddItem("experience", {
+                title: "",
+                company: "",
+                start_date: "",
+                end_date: "",
+                description: "",
+              })
+            }
+          >
+            + Add
+          </button>
+        </div>
+        <div className="card-body">
+          {portfolio.experience.map((p, idx) => (
+            <div key={idx} className="border p-3 mb-3 rounded">
+              <input
+                type="text"
+                value={p.title}
+                onChange={(e) =>
+                  handleNestedChange("experience", idx, "title", e.target.value)
+                }
+                placeholder="Your Role"
+                className="form-control mb-2"
+              />
+              <textarea
+                value={p.description}
+                onChange={(e) =>
+                  handleNestedChange(
+                    "experience",
+                    idx,
+                    "description",
+                    e.target.value
+                  )
+                }
+                placeholder="Role Description"
+                className="form-control mb-2"
+              />
+              <input
+                type="text"
+                value={p.company}
+                onChange={(e) =>
+                  handleNestedChange(
+                    "experience",
+                    idx,
+                    "company",
+                    e.target.value
+                  )
+                }
+                placeholder="Company name"
+                className="form-control mb-2"
+              />
+              <input
+                type="month"
+                value={p.start_date}
+                onChange={(e) =>
+                  handleNestedChange(
+                    "experience",
+                    idx,
+                    "start_date",
+                    e.target.value
+                  )
+                }
+                placeholder="Start Date"
+                className="form-control mb-2"
+              />
+              <input
+                type="month"
+                value={p.end_date}
+                onChange={(e) =>
+                  handleNestedChange(
+                    "experience",
+                    idx,
+                    "end_date",
+                    e.target.value
+                  )
+                }
+                placeholder="End date"
+                className="form-control mb-2"
+              />
+              <div className="text-end">
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handleRemoveItem("experience", idx)}
                 >
                   Remove
                 </button>
